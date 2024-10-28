@@ -7,6 +7,7 @@ from django.utils.translation import gettext_lazy as _
 
 from core import models
 
+
 class UserAdmin(BaseUserAdmin):
     """Define the main pages for users."""
     ordering = ['id']
@@ -31,8 +32,8 @@ class UserAdmin(BaseUserAdmin):
         (None, {
             'classes': ('wide',),
             'fields': (
-                'email', 
-                'password1', 
+                'email',
+                'password1',
                 'password2',
                 'name',
                 'is_active',
@@ -41,6 +42,7 @@ class UserAdmin(BaseUserAdmin):
             )
         }),
     )
+
 
 admin.site.register(models.User, UserAdmin)
 admin.site.register(models.Recipe)

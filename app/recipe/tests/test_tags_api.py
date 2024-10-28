@@ -30,7 +30,7 @@ class PublicTagsApiTests(TestCase):
 
     def setUp(self):
         self.client = APIClient()
-    
+
     def test_auth_required(self):
         """Test required for retrieving tags."""
         res = self.client.get(TAGS_URL)
@@ -45,7 +45,7 @@ class PrivateTagsApiTests(TestCase):
         self.user = create_user()
         self.client = APIClient()
         self.client.force_authenticate(self.user)
-    
+
     def test_retrieve_tags(self):
         """Test retrieving a list of tags."""
         Tag.objects.create(user=self.user, name='Vegan')
@@ -82,7 +82,7 @@ class PrivateTagsApiTests(TestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         tag.refresh_from_db()
         self.assertEqual(tag.name, payload['name'])
-    
+
     def test_delete_tag(self):
         """Test deleting a tag."""
         tag = Tag.objects.create(user=self.user, name='Breakfast')
@@ -93,4 +93,3 @@ class PrivateTagsApiTests(TestCase):
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
         tags = Tag.objects.filter(user=self.user)
         self.assertFalse(tags.exists())
-        

@@ -7,6 +7,7 @@ from core.models import (
     Recipe, Tag
 )
 
+
 class TagSerializer(serializers.ModelSerializer):
     """Serializer for tags."""
 
@@ -14,6 +15,7 @@ class TagSerializer(serializers.ModelSerializer):
         model = Tag
         fields = ['id', 'name']
         read_only_fields = ['id']
+
 
 class RecipeSerializer(serializers.ModelSerializer):
     """Serializer for recipes."""
@@ -23,7 +25,7 @@ class RecipeSerializer(serializers.ModelSerializer):
         model = Recipe
         fields = ['id', 'title', 'time_minutes', 'price', 'link', 'tags']
         read_only_fields = ['id']
-    
+
     def _get_or_create_tags(self, tags, recipe):
         """Handle getting or creating tags as needed."""
 
@@ -34,15 +36,15 @@ class RecipeSerializer(serializers.ModelSerializer):
                 **tag,
             )
             recipe.tags.add(tag_obj)
-    
+
     def create(self, validated_data):
         """Create a recipe."""
         tags = validated_data.pop('tags', [])
         recipe = Recipe.objects.create(**validated_data)
         self._get_or_create_tags(tags, recipe)
-        
+
         return recipe
-    
+
     def update(self, instance, validated_data):
         """Update recipe."""
         tags = validated_data.pop('tags', None)
