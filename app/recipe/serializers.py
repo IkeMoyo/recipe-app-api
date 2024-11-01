@@ -42,7 +42,8 @@ class RecipeSerializer(serializers.ModelSerializer):
             'price',
             'link',
             'tags',
-            'ingredients']
+            'ingredients',
+        ]
         read_only_fields = ['id']
 
     def _get_or_create_tags(self, tags, recipe):
@@ -54,7 +55,7 @@ class RecipeSerializer(serializers.ModelSerializer):
                 user=auth_user,
                 **tag,
             )
-        recipe.tags.add(tag_obj)
+            recipe.tags.add(tag_obj)
 
     def _get_or_create_ingredients(self, ingredients, recipe):
         """Handle getting or creating ingredients as needed."""
