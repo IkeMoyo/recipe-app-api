@@ -7,9 +7,9 @@ import os
 from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import (
-   AbstractBaseUser,
-   BaseUserManager,
-   PermissionsMixin
+    AbstractBaseUser,
+    BaseUserManager,
+    PermissionsMixin,
 )
 
 
@@ -21,7 +21,7 @@ def recipe_image_file_path(instance, filename):
     return os.path.join('uploads', 'recipe', filename)
 
 
-class UseManager(BaseUserManager):
+class UserManager(BaseUserManager):
     """Manager for users."""
 
     def create_user(self, email, password=None, **extra_fields):
@@ -51,7 +51,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
-    objects = UseManager()
+    objects = UserManager()
 
     USERNAME_FIELD = 'email'
 
@@ -61,7 +61,7 @@ class Recipe(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        )
+    )
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True)
     time_minutes = models.IntegerField()
@@ -92,7 +92,7 @@ class Ingredient(models.Model):
     name = models.CharField(max_length=255)
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
     )
 
     def __str__(self):

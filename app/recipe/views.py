@@ -7,6 +7,7 @@ from drf_spectacular.utils import (
     OpenApiParameter,
     OpenApiTypes,
 )
+
 from rest_framework import (
     viewsets,
     mixins,
@@ -22,7 +23,6 @@ from core.models import (
     Tag,
     Ingredient,
 )
-
 from recipe import serializers
 
 
